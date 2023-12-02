@@ -1,0 +1,17 @@
+{
+      "trailingComma": "all",
+      "tabWidth":2,
+      "semi": true,
+      "singleQuote": true,
+      "printWidth": 60,
+      "plugins": ["@shufo/prettier-plugin-blade"],
+  "overrides": [
+    {
+      "files": ["*.blade.php"],
+      "options": {
+        "parser": "blade",
+        "tabWidth": 1
+      }
+    }
+  ]
+}
