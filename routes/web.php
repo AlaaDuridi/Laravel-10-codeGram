@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
+    return view('welcome');
 
     //**************raw sql queries *******************
 
@@ -81,8 +81,8 @@ Route::get('/', function () {
 
 
 
-$user = User::all()->find(20);
-    dd($user->name); ##########Main#######################################
+// $user = User::all()->find(20);
+    // dd($user->name); ##########Main#######################################
 });
 
 Route::get('/dashboard', function () {

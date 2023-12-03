@@ -6,6 +6,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,16 +48,42 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected function password(): Attribute {
+    /**
+     * @todo $user = User::create(['name'=>'ruba','email'=>'ruba@sheikh' , 'password'=>'hiba'])
+     */
+    protected function password(): Attribute
+    {
         return Attribute::make(
-        set: fn($value)=>bcrypt($value));
+            set: fn ($value) => bcrypt($value)
+        );
     }
-
-    protected function name(): Attribute {
+    /**
+     * @todo dd($user->name);
+     */
+    protected function name(): Attribute
+    {
         return Attribute::make(
-        get: fn($value)=>Str::upper($value));
+            get: fn ($value) => Str::upper($value)
+        );
         //Str -- laravel
-       // strtoupper -- php
+        // strtoupper -- php
     }
 
+    /**
+     * @todo define relationships
+     */
+    /**
+     * Get the phone associated with the user
+     */
+
+    public function phone(): HasOne
+    {
+        return $this->hasOne('Phone::class');
+    }
+
+    //Get posts associated with the user
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 }
