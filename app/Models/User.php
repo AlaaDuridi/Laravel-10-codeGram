@@ -29,6 +29,17 @@ class User extends Authenticatable
     ];
 
     /**
+     * @var array<int, string>
+     * MASS ASSIGNMENT
+     *
+     * try making all the attributes guarder, and trust the user.
+     * here, if you go and tried in tinker to update anything, it will be accepted
+     */
+
+    // protected $guarded = [];
+
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -78,7 +89,7 @@ class User extends Authenticatable
 
     public function phone(): HasOne
     {
-        return $this->hasOne('Phone::class');
+        return $this->hasOne(Phone::class);
     }
 
     //Get posts associated with the user

@@ -10,4 +10,6 @@ class Flight extends Model
     use HasFactory;
 
     protected $table = 'flights';
+
+    protected $fillable = ['name'];
 }
