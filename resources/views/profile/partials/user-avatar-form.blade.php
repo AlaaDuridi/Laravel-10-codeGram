@@ -3,6 +3,12 @@
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             User Avatar
         </h2>
+        {{-- @php
+        dd($user->avatar)
+        @endphp --}}
+
+        <img src={{ "storage/$user->avatar" }} alt="user-avatar" class="rounded-full" width="50" height="50">
+
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Add or update user avatar
