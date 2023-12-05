@@ -8,14 +8,23 @@ use Auth;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Storage;
 
 class AvatarController extends Controller
 {
     public function update(UpdateAvatarRequest $request)
     {
+
+
         //store the avatar
         // $path = $request->file('avatar')->store('public/avatars');
-        $path = $request->file('avatar')->store('avatars', 'public');
+        // $path = $request->file('avatar')->store('avatars', 'public'); ############## this works perfectly but we need to use Storage facade
+        $path = Storage::disk('public')->put('avatars', $request->file('avatar'));
+        // dd($path);
+        if ($old_avatar = $request->user()->avatar) {
+            // dd($old_avatar);
+            Storage::disk('public')->delete($old_avatar);
+        }
         $request->user()->update(['avatar' => $path]);
         // dd($path);
         /**
