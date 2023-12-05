@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Phone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use OpenAI\Laravel\Facades\OpenAI;
+use OpenAI\Responses\Completions\CreateResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,3 +98,23 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+/**
+ * Usage of OpenAI facade, this is not best practice, we should use controller, but just for trying things out,we can tyy create a route with a closure
+ */
+Route::get('/openai', function () {
+    // $result = OpenAI::chat()->create([
+    //     'model' => 'gpt-3.5-turbo',
+    //     'messages' => [
+    //         ['role' => 'user', 'content' => 'Hello!'],
+    //     ],
+    // ]);
+
+    // echo $result->choices[0]->message->content;
+
+    $result = OpenAI::completions()->create([
+        'model' => 'text-davinci-003',
+        'prompt' => "PHP is"
+    ]);
+    echo $result['choices'][0]['text'];
+});

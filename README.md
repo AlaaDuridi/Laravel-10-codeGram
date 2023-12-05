@@ -29,3 +29,24 @@ You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
+## OpenAI with Laravel 
+
+[Core package]: (https://github.com/openai-php/client)
+
+[Laravel package]: (https://github.com/openai-php/laravel)
+
+>composer require openai-php/laravel 
+>php artisan vendor:publish --provider="OpenAI\Laravel\ServiceProvider"
+- write example code, [example:](web.php, Route:/openai)
+- get authenticated by OpenAI, bring the  OPENAI_API_KEY and OPENAI_ORGANIZATION, and plce them in the .env file 
+- [maybe] you need to install cacert.pem following the instructions at https://curl.se/docs/caextract.html .
+-save it on your filesystem somewhere (for example, XAMPP users might use C:\xampp\php\extras\ssl\cacert.pem)
+-in your php.ini, put this file location in the [curl] section (putting it in the [openssl] section is also a good idea):
+[curl]
+curl.cainfo = "C:\xampp\php\extras\ssl\cacert.pem"
+
+[openssl]
+openssl.cafile = "C:\xampp\php\extras\ssl\cacert.pem"
+
+
+
