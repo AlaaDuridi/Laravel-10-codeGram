@@ -8,11 +8,18 @@
         @endphp --}}
 
         <img src={{ "storage/$user->avatar" }} alt="user-avatar" class="rounded-full" width="50" height="50">
-
+        <form method="post" action={{ route('profile.avatar.ai') }} class="mt-4">
+            @csrf
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Generate Avatar From AI
+            </p>
+            <x-primary-button>Generate Avatar </x-primary-button>
+        </form>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Add or update user avatar
+            OR
         </p>
+
     </header>
 
     @if(session('message'))
@@ -35,7 +42,7 @@
         {{-- @method('patch') --}}
         {{-- remove required attr from the file input --}}
         <div>
-            <x-input-label for="name" :value="__('Avatar')" />
+            <x-input-label for="name" :value="__('Upload Avatar From Computer')" />
             <x-text-input id="avatar" name="avatar" type="file" class="mt-1 block w-full"
                 :value="old('avatar', $user->name)" autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('avatar')" />

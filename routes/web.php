@@ -93,8 +93,9 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
+    Route::post('/profile/avatar/ai', [AvatarController::class, 'generate'])->name('profile.avatar.ai');
 });
 
 require __DIR__ . '/auth.php';
@@ -103,6 +104,9 @@ require __DIR__ . '/auth.php';
  * Usage of OpenAI facade, this is not best practice, we should use controller, but just for trying things out,we can tyy create a route with a closure
  */
 Route::get('/openai', function () {
+    /**
+    NOTE: TASK NUMBER ONE
+     */
     // $result = OpenAI::chat()->create([
     //     'model' => 'gpt-3.5-turbo',
     //     'messages' => [
@@ -112,9 +116,33 @@ Route::get('/openai', function () {
 
     // echo $result->choices[0]->message->content;
 
-    $result = OpenAI::completions()->create([
-        'model' => 'text-davinci-003',
-        'prompt' => "PHP is"
+    /**
+    NOTE: TASK NUMBER TWO
+     */
+    // $result = OpenAI::completions()->create([
+    //     'model' => 'text-davinci-003',
+    //     'prompt' => "PHP is"
+    // ]);
+    // echo $result['choices'][0]['text'];
+
+    /**
+    NOTE: TASK NUMBER THREE :use the AI to generate an image
+     */
+    // $result = OpenAI::images()->create([
+    //     'prompt' => "a PC screen viewing a cup of tea in front of a PC screen with a laptop, and the laptop is viewing a youtube tutorial to learn Laravel, and the PC screen viewing the vscode window",
+    //     'n' => 2,
+    //     'size' => "256x256"
+    // ]);
+    // dd($result);
+
+    /**
+    NOTE: TASK NUMBER FOUR :use the AI to generate an image
+     */
+
+    $result = OpenAI::images()->create([
+        'prompt' => 'create an avatar for user with name ' . auth()->user()->name,
+        'n' => 1,
+        'size' => '256x256'
     ]);
-    echo $result['choices'][0]['text'];
+    return response(['url' => $result->data[0]->url]);
 });

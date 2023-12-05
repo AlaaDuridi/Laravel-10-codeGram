@@ -51,5 +51,13 @@ curl.cainfo = "C:\xampp\php\extras\ssl\cacert.pem"<br>
 [openssl]<br>
 openssl.cafile = "C:\xampp\php\extras\ssl\cacert.pem"<br>
 
+<hr> 
+
+## Using OpenAI to generate an image 
+<br>  
+
+## generate an Avatar with the OpenAi and use it as profile image 
+- when click a button, you'll generate a new image and store it in the storage, and then use it as progile image
+
 
 
