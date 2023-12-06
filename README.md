@@ -53,11 +53,17 @@ openssl.cafile = "C:\xampp\php\extras\ssl\cacert.pem"<br>
 
 <hr> 
 
+## Link storage/app/public to public/storage
+    >php artisan storage:link 
 ## Using OpenAI to generate an image 
 <br>  
 
 ## generate an Avatar with the OpenAi and use it as profile image 
 - when click a button, you'll generate a new image and store it in the storage, and then use it as progile image
 
-
+## login with github 
+    >composer require laravel/socialite
+    get the user 
+    auhthenticate the user  by email 
+    updateOrCreate
 

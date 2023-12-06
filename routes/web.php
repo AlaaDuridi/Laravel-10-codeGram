@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Phone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Completions\CreateResponse;
 
@@ -145,4 +146,30 @@ Route::get('/openai', function () {
         'size' => '256x256'
     ]);
     return response(['url' => $result->data[0]->url]);
+});
+
+//NOTE:these two methods are for Socialite
+
+Route::post('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login.github');
+
+Route::get('/auth/callback', function () {
+    //TODO: get the user from the github
+    $user = Socialite::driver('github')->user();
+    //TODO: check if the user available with this email or not, if not available, then generate or update the email and password
+
+    // User::updateOrCreate(
+    //     ['email' => $user->email],
+    //     ['name' => $user->name, 'password' => 'password']
+    // );
+    $user = User::firstOrCreate(
+        ['email' => $user->email],
+        ['name' => $user->name, 'password' => 'password']
+    );
+    // dd($user->email);
+    // $user->token
+    Auth::login($user);
+
+    return redirect('/dashboard');
 });

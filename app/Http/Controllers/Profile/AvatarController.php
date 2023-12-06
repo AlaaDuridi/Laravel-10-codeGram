@@ -17,8 +17,6 @@ class AvatarController extends Controller
 {
     public function update(UpdateAvatarRequest $request)
     {
-
-
         //TODO:store the avatar
         // $path = $request->file('avatar')->store('public/avatars');
         // $path = $request->file('avatar')->store('avatars', 'public'); ############## this works perfectly but we need to use Storage facade
@@ -97,14 +95,14 @@ class AvatarController extends Controller
 
         $file_name = Str::random(25);
         //TODO:store the avatar
-        Storage::disk('public')->put("avatars/$file_name.jpeg", $content);
+        Storage::disk('public')->put("avatars/$file_name.jpg", $content);
         //TODO: delete the older one
         if ($old_avatar = $request->user()->avatar) {
             // dd($old_avatar);
             Storage::disk('public')->delete($old_avatar);
         }
         //TODO: update the db
-        $request->user()->update(['avatar' => "avatars/$file_name.jpeg"]);
+        $request->user()->update(['avatar' => "avatars/$file_name.jpg"]);
         //TODO: redirect to the route of /profile named profile.edit
         return redirect(route('profile.edit'))->with('message', 'Avatar is changed by AI');
 
